@@ -5,3 +5,6 @@
 ```bash
 wget https://cdn.coggle.club/arxiv-metadata-oai-2019.json.zip
 ```
+bs4.FeatureNotFound: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+
+pip install lxml
