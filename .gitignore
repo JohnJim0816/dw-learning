@@ -1,3 +1,5 @@
 .DS_Store
 .vscode
+test.py
 task01/data/arxiv-metadata-oai-2019.json
+task01/data/arxiv-metadata-oai-snapshot.json

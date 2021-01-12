@@ -5,7 +5,7 @@ Author: John
 Email: johnjim0816@gmail.com
 Date: 2021-01-11 10:56:31
 LastEditor: John
-LastEditTime: 2021-01-12 16:41:56
+LastEditTime: 2021-01-12 17:04:29
 Discription: 
 Environment: 
 '''
@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt #画图工
 
 
 data2019_path = curr_dir+"/data/arxiv-metadata-oai-2019"
+data_alll_path = curr_dir+"/data/arxiv-metadata-oai-snapshot"
 def json2csv(data_path):
     data_json_path = data_path + ".json"
     data  = [] #初始化
@@ -42,7 +43,10 @@ def json2csv(data_path):
     df = df.drop(columns=del_cols) # 删除无关特征
     df["year"] = pd.to_datetime(df["update_date"]).dt.year #将update_date从例如2019-02-20的str变为datetime格式，并提取处year
     del df["update_date"] #删除 update_date特征，其使命已完成
+
     # print(df.shape) #显示数据大小   
+
+    ### 存储为csv ###
     df.to_csv(data_path+'.csv',index=None)
 
 def get_taxonomy():
@@ -92,12 +96,20 @@ def plot_year_dist(df,df_taxonomy):
     group_name="Computer Science"
     cats = df.merge(df_taxonomy, on="categories").query("group_name == @group_name")
     cats = cats.groupby(["year","category_name"]).count().reset_index().pivot(index="category_name", columns="year",values="id")
+    cats = cats.fillna(0)
     return cats
 
 if __name__ == "__main__":
-    # json2csv()
+    PATH  = data_alll_path
+    # json2csv(PATH)
     df_taxonomy = get_taxonomy()
-    df = pd.read_csv(data2019_path+'.csv')
+    df = pd.read_csv(PATH+'.csv')
+
+    ### 保留2016年后的数据 ###
+    df = df[df["year"] >= 2017] #找出 year 中2016年以后的数据，并将其他数据删除
+    # data.groupby(['categories','year']) #以 categories 进行排序，如果同一个categories 相同则使用 year 特征进行排序
+    df.reset_index(drop=True, inplace=True) #重新编号
+
     cats = plot_year_dist(df,df_taxonomy)
     print(cats)
 
