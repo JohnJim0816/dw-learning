@@ -6,7 +6,7 @@
 
 也可以只使用2019年的数据做测试用，执行```wget https://cdn.coggle.club/arxiv-metadata-oai-2019.json.zip```下载即可。
 
-这里由于数据集太大没有放在repo中，可下载后放入```task01/data```文件夹中
+这里由于数据集太大没有放在repo中，可下载解压后放入```task01/data```文件夹中
 
 ### 数据集预处理
 
@@ -23,7 +23,7 @@ for key_word in key_words:
 
 这里考虑首字母大小写定义了四个可能的关键字，选择了```A in B```的字符串查找方法加快速度，参考[三种查找字符串方法的速度比较](https://blog.csdn.net/JohnJim0/article/details/112526662)
 
-然后由于只对年份，数量进行相关，所以这里直接删除了一些无关的特征，比如'submitter','authors'等，如下：
+然后由于只对年份，数量进行相关分析，所以这里直接删除了一些无关的特征，比如'submitter','authors'等，如下：
 
 ```python
 del_cols = ['submitter','authors','comments','journal-ref','doi','report-no','license','versions','authors_parsed','title','abstract']
