@@ -5,7 +5,7 @@ Author: John
 Email: johnjim0816@gmail.com
 Date: 2021-01-11 10:56:31
 LastEditor: John
-LastEditTime: 2021-01-12 18:38:52
+LastEditTime: 2021-01-12 19:08:08
 Discription: 
 Environment: 
 '''
@@ -42,6 +42,7 @@ def pre_process(data_path):
     ### 由于一些特征对后面的分析无关紧要，所以删除减小内存以便加快分析速度 ###
     del_cols = ['submitter','authors','comments','journal-ref','doi','report-no','license','versions','authors_parsed','title','abstract']
     df = df.drop(columns=del_cols) # 删除无关特征
+
     df["year"] = pd.to_datetime(df["update_date"]).dt.year #将update_date从例如2019-02-20的str变为datetime格式，并提取处year
     del df["update_date"] #删除 update_date特征，其使命已完成
 
@@ -92,13 +93,15 @@ def plot_cato_dist(df,df_taxonomy):
     fig = plt.figure(figsize=(15,12))
 
     ### 画饼状图 ###
-    plt.pie(_df["id"],  labels=_df["group_name"], autopct='%1.2f%%', startangle=160)
+    explode = (0, 0, 0, 0.2, 0.3, 0.3, 0.2, 0.1) 
+    plt.pie(_df["id"],  labels=_df["group_name"], autopct='%1.2f%%', startangle=160, explode=explode)
     plt.tight_layout()
     plt.show()
 
 def plot_year_dist(df,df_taxonomy):
     '''记录不同类别论文数量随年份的变化
     '''
+    group_name="Computer Science"
     cats = df.merge(df_taxonomy, on="categories").query("group_name == @group_name")
     cats = cats.groupby(["year","category_name"]).count().reset_index().pivot(index="category_name", columns="year",values="id")
     cats = cats.fillna(0) # 将dataframe中的所有NaN替换为0
@@ -108,6 +111,7 @@ if __name__ == "__main__":
     PATH  = data_alll_path
     # pre_process(PATH)  # 首次分析时这行需要取消注释
     df_taxonomy = get_taxonomy()
+    print(df_taxonomy)
     df = pd.read_csv(PATH+'.csv')
 
     ### 保留2017年后的数据 ###
