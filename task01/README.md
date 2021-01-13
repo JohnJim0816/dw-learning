@@ -1,4 +1,4 @@
-本文参考数据分析组队学习[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，在此基础上做了一个对强化学习领域相关的分析
+本文参考数据分析组队学习[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，在此基础上做了一个对强化学习领域相关论文的分析
 
 ### 数据集下载
 
@@ -55,7 +55,7 @@ bs4.FeatureNotFound: Couldn't find a tree builder with the features you requeste
 
 ### 打印不同类别论文数目随年份的变化
 
-见```plot_year_dist(df,df_taxonomy)```函数，跟[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，不过需要注意合并的时候会产生NaN的元素，需要替换为0值：
+见```plot_year_dist(df,df_taxonomy)```函数，跟[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)类似，不过需要注意合并的时候会产生NaN的元素，需要替换为0值：
 
 ```python
 cats = cats.fillna(0) # 将dataframe中的所有NaN替换为0
