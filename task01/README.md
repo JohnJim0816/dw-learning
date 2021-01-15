@@ -1,4 +1,4 @@
-本文参考数据分析组队学习[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，在此基础上做了一个对强化学习领域相关的分析
+本文参考数据分析组队学习[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，在此基础上做了一个对强化学习领域相关论文的分析，环境使用的是python3.7.9，代码见[main.py](https://github.com/JohnJim0816/dw-learning/blob/master/task01/main.py)
 
 ### 数据集下载
 
@@ -6,7 +6,7 @@
 
 也可以只使用2019年的数据做测试用，执行```wget https://cdn.coggle.club/arxiv-metadata-oai-2019.json.zip```下载即可。
 
-这里由于数据集太大没有放在repo中，可下载后放入```task01/data```文件夹中
+这里由于数据集太大没有放在repo中，可下载解压后放入```task01/data```文件夹中
 
 ### 数据集预处理
 
@@ -23,7 +23,7 @@ for key_word in key_words:
 
 这里考虑首字母大小写定义了四个可能的关键字，选择了```A in B```的字符串查找方法加快速度，参考[三种查找字符串方法的速度比较](https://blog.csdn.net/JohnJim0/article/details/112526662)
 
-然后由于只对年份，数量进行相关，所以这里直接删除了一些无关的特征，比如'submitter','authors'等，如下：
+然后由于只对年份，数量进行相关分析，所以这里直接删除了一些无关的特征，比如'submitter','authors'等，如下：
 
 ```python
 del_cols = ['submitter','authors','comments','journal-ref','doi','report-no','license','versions','authors_parsed','title','abstract']
@@ -55,7 +55,7 @@ bs4.FeatureNotFound: Couldn't find a tree builder with the features you requeste
 
 ### 打印不同类别论文数目随年份的变化
 
-见```plot_year_dist(df,df_taxonomy)```函数，跟[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)，不过需要注意合并的时候会产生NaN的元素，需要替换为0值：
+见```plot_year_dist(df,df_taxonomy)```函数，跟[作业链接](https://github.com/datawhalechina/team-learning-data-mining/blob/master/AcademicTrends/Task1%20%E8%AE%BA%E6%96%87%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1.md)类似，不过需要注意合并的时候会产生NaN的元素，需要替换为0值：
 
 ```python
 cats = cats.fillna(0) # 将dataframe中的所有NaN替换为0
